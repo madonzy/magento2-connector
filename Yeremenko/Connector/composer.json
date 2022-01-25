@@ -1,0 +1,32 @@
+{
+    "name": "yeremenko/module-connector",
+    "description": "",
+    "require": {
+        "php": "^7.4.0",
+        "ext-pdo": "*",
+        "magento/magento-composer-installer": "*",
+        "guzzlehttp/guzzle": "^6.5.*"
+    },
+    "suggest": {
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Yeremenko\\Connector\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Yeremenko/Connector"
+            ]
+        ]
+    }
+}

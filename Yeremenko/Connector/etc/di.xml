@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Yeremenko\Connector\Model\Request\RequestInterface" type="Yeremenko\Connector\Model\Request\RequestData" />
+    <preference for="Yeremenko\Connector\Api\ConnectorServiceInterface" type="Yeremenko\Connector\Service\ConnectorService" />
+    <preference for="GuzzleHttp\ClientInterface" type="GuzzleHttp\Client" />
+    <preference for="Yeremenko\Connector\Api\StackPopInterface" type="Yeremenko\Connector\Model\DataStack" />
+    <preference for="Yeremenko\Connector\Model\Converter\Rest\RestConverterInterface" type="Yeremenko\Connector\Model\Converter\Rest\JsonJsonConverter" />
+    <preference for="Yeremenko\Connector\Model\Authorization\AuthorizationInterface" type="Yeremenko\Connector\Model\Authorization\VpnAuthorization" />
+
+    <type name="Yeremenko\Connector\Model\Request\RequestInterface" shared="false" />
+
+    <!--  Set available request builders (START)  -->
+    <type name="Yeremenko\Connector\Model\Request\Builder\BuilderFactory">
+        <arguments>
+            <argument name="instances" xsi:type="array">
+                <item name="Yeremenko\Connector\Api\RestInterface" xsi:type="string">Yeremenko\Connector\Model\Request\Builder\Rest</item>
+                <item name="Yeremenko\Connector\Api\CsvInterface" xsi:type="string">Yeremenko\Connector\Model\Request\Builder\Csv</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--  Set available request builders (STOP)  -->
+
+    <!--  Set available request connection (START)  -->
+    <type name="Yeremenko\Connector\Model\Connection\ConnectionPool">
+        <arguments>
+            <argument name="instances" xsi:type="array">
+                <item name="Yeremenko\Connector\Api\RestInterface" xsi:type="string">Yeremenko\Connector\Model\Connection\Rest</item>
+                <item name="Yeremenko\Connector\Api\CsvInterface" xsi:type="string">Yeremenko\Connector\Model\Connection\Csv</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--  Set available request connection (STOP)  -->
+    <type name="Yeremenko\Connector\Model\Connection\Rest">
+        <arguments>
+            <argument name="stack" xsi:type="object">Yeremenko\Connector\Model\DataStack</argument>
+        </arguments>
+    </type>
+
+    <type name="Yeremenko\Connector\Model\AbstractCsvContract">
+        <arguments>
+            <argument name="converter" xsi:type="object">Yeremenko\Connector\Model\Converter\Csv\ArrayArrayConverter</argument>
+        </arguments>
+    </type>
+</config>
